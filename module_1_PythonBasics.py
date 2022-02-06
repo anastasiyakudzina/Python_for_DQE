@@ -17,7 +17,9 @@ def average(n):
 
 # Using random.sample() functions to generate random number list.
 # Using a range() object as an argument to choose a sample from a range of integers.
-random_list = random.sample(range(1001), 100)
+random_list = random.sample(range(1001), 10)
+random_list_1 = random_list.copy()
+print("List of random numbers : " + str(random_list))
 
 # Creating an empty list for sorting purpose.
 sort_list = []
@@ -36,6 +38,13 @@ while random_list:
     # The "remove()" method takes a single element as an argument and removes it from the list.
     random_list.remove(minimum)
 
+# Second approach for sorting list
+sort_list_1 = []
+while random_list_1:
+    minimum_1 = min(random_list_1)
+    sort_list_1.append(minimum_1)
+    random_list_1.remove(minimum_1)
+
 # The "for" loop is used for iterating over a list and checking remainder after dividing number from list by 2.
 # If remainder is 0 then it is even number.
 even_list = [num for num in sort_list if num % 2 == 0]
@@ -44,8 +53,8 @@ even_list = [num for num in sort_list if num % 2 == 0]
 odd_list = [num for num in sort_list if num % 2 == 1]
 
 # Printing results. The str() function converts the number into a string.
-print("List of random numbers : " + str(random_list))
 print("List of sort numbers : " + str(sort_list))
+print("v2. List of sort numbers : " + str(sort_list_1))
 print("List of even numbers : " + str(even_list))
 print("List of odd numbers : " + str(odd_list))
 print("Average for even numbers is: " + str(average(even_list)))
