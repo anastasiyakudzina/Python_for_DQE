@@ -17,7 +17,7 @@ def average(n):
 
 # Using random.sample() functions to generate random number list.
 # Using a range() object as an argument to choose a sample from a range of integers.
-random_list = random.sample(range(1001), 10)
+random_list = random.sample(range(1001), 100)
 random_list_1 = random_list.copy()
 print("List of random numbers : " + str(random_list))
 
