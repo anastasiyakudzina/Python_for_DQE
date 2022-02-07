@@ -8,13 +8,14 @@ mylist = []
 # "Randint" returns a random integer in range [start, end] including the end points.
 number_of_dicts = randint(2, 10)
 
+# 26 letters in lowercase from ascii
+letters = string.ascii_lowercase
+
 # Using the "for" loop for iterating over the list and creating random number of dicts with key-value in the dicts.
 for n in range(number_of_dicts):
     # Defining the dict's random numbers of keys that should be letter.
     # 26 letters: "abcdefghijklmnopqrstuvwxyz"
-    list_length = randint(0, 26)
-    # Iterating 26 letters in lowercase from ascii
-    letters = [i for i in string.ascii_lowercase]
+    list_length = randint(1, 26)
     # Using random.sample() functions to generate random number list
     # Value - "letters", length of list - "list_length".
     random_list = random.sample(letters, list_length)
@@ -47,12 +48,10 @@ for key, value in prepared_dict.items():
     not_none_values = [i for i in value if i is not None]
     # Finding max "not None" value in this list
     max_value = max(not_none_values)
-    # Finding sum of "not None" value in this list
-    sum_value = sum(not_none_values)
     # Finding index of max "not None" value in this list
     max_index = value.index(max_value)
-    # Key is only in one dict, if max "not None" value is equal to sum of "not None" value
-    if max_value == sum_value:
+    # Key is only in one dict, if length "not None" value is equal to 1
+    if len(not_none_values) == 1:
         # Don't add an index to the key name
         final_dict[key] = max_value
     # Else dicts have same key
