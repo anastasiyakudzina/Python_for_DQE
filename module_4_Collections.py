@@ -9,10 +9,10 @@ def create_dict(dict_length, key):
     return res
 
 
-def list_of_dict(dicts_num, dict_length_1, key_1):
+def list_of_dict(dicts_num, dict_length, key):
     mylist = []
     for n in range(dicts_num):
-        mylist.append(create_dict(dict_length_1, key_1))
+        mylist.append(create_dict(dict_length, key))
     return mylist
 
 
