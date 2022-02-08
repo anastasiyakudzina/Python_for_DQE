@@ -1,14 +1,14 @@
 import re
 
 
-def count_spaces(text_1):
-    new_raw_text = re.sub(r'[^\w\s]', '', text_1)
+def count_spaces(text):
+    new_raw_text = re.sub(r'[^\w\s]', '', text)
     number_of_space = len(re.findall(r'\W', new_raw_text))
     print("\nNumber of whitespace characters in this text: " + str(number_of_space))
 
 
-def replace_common_problem(text_2):
-    is_iz = text_2.lower().replace(' iz ', ' is ')
+def replace_common_problem(text):
+    is_iz = text.lower().replace(' iz ', ' is ')
     delete_tab = is_iz.replace('\t', '')
     add_new_line = delete_tab.replace(':', ':\n\n')
     delete_2_new_line = add_new_line.replace('\n\n\n\n', '\n\n')
@@ -21,9 +21,9 @@ def replace_common_problem(text_2):
     return delete_space_dot
 
 
-def create_capitalizing_sentences(text_3):
+def create_capitalizing_sentences(text):
     normalize_sentences = []
-    for i in text_3.split('\n'):
+    for i in text.split('\n'):
         find_sentences = [sentence for sentence in i.split('.')]
         for s in find_sentences:
             capitalize_sentences = s.capitalize()
@@ -31,9 +31,9 @@ def create_capitalizing_sentences(text_3):
     return normalize_sentences
 
 
-def create_last_word_sentence(text_3):
+def create_last_word_sentence(text):
     last_word_list = []
-    for i in text_3.split('\n'):
+    for i in text.split('\n'):
         find_sentences = [sentence for sentence in i.split('.')]
         for s in find_sentences:
             capitalize_sentences = s.capitalize()
@@ -60,9 +60,9 @@ def add_last_word_sentence_to_text(last_word_list, main_sentences_list):
     return main_sentences_list
 
 
-def add_dot_and_paragraph_into_text(normalize_sentences_1):
+def add_dot_and_paragraph_into_text(full_text_list):
     normalize_sentences_with_dot = []
-    for c in normalize_sentences_1:
+    for c in full_text_list:
         if len(c) >= 1 and len(re.findall(r'\W$', c)) == 0:
             st_new = c + '.'
             normalize_sentences_with_dot.append(st_new)
