@@ -1,5 +1,6 @@
 import datetime
 from random import randint
+import os
 
 
 class PublicationFactory:
@@ -72,9 +73,11 @@ class Publisher:
     @staticmethod
     def publish(publication):
         content = publication.get_content()
-        file_path = open("C:/Users/Anastasiya_Kudzina1/Desktop/news.txt", "a+")
-        file_path.write(content)
-        file_path.close()
+        filename = "/Python_for_DQE/module_5/news.txt"
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, "a+") as f:
+            f.write(content)
+            f.close()
 
 
 class Runner:
