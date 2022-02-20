@@ -77,7 +77,6 @@ class Publisher:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, "a+") as f:
             f.write(content)
-            f.close()
 
 
 class Runner:
