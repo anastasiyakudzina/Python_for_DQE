@@ -71,7 +71,6 @@ def add_dot_and_paragraph_into_text(full_text_list):
     return ' '.join(normalize_sentences_with_dot).replace('   ', '\n\n\t')
 
 
-
 raw_text = """homEwork:
 tHis iz your homeWork, copy these Text to variable. 
 
@@ -81,13 +80,12 @@ tHis iz your homeWork, copy these Text to variable. 
 
 	last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87. 
 """
-
-count_spaces(raw_text)
-
 prepared_text = replace_common_problem(raw_text)
 list_capitalizing_sentence = create_capitalizing_sentences(prepared_text)
 list_last_words = create_last_word_sentence(prepared_text)
 full_text = add_last_word_sentence_to_text(list_last_words, list_capitalizing_sentence)
 text_with_dot_and_paragraph = add_dot_and_paragraph_into_text(full_text)
 
-print("\nNormalized text:\n\n" + str(text_with_dot_and_paragraph))
+if __name__ == '__main__':
+    count_spaces(raw_text)
+    print("\nNormalized text:\n\n" + str(text_with_dot_and_paragraph))
