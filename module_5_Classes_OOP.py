@@ -41,7 +41,7 @@ class Advertising(Publication):
     def __init__(self):
         super().__init__()
         self.current_date = datetime.date.today()
-        extension = input("Please enter a expiration month in YYYY-MM-DD (must be >= " + str(self.current_date) + "): ")
+        extension = input("Please enter a expiration date in YYYY-MM-DD (must be >= " + str(self.current_date) + "): ")
         self.expiration_date = datetime.datetime.strptime(extension, "%Y-%m-%d").date()
         if self.expiration_date < self.current_date:
             raise UserWarning("Expiration date must be greater than or equal to current date.")
