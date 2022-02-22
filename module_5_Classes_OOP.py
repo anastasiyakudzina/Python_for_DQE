@@ -26,45 +26,43 @@ class Publication:
 
 class News(Publication):
     def __init__(self):
-        super(News, self).__init__()
+        super().__init__()
         self.city = input("Please write a city: ")
         self.date = datetime.datetime.now()
 
     def get_content(self):
         return "News -------------------------\n" + \
-               super(News, self).get_content() + "\n" + \
+               super().get_content() + "\n" + \
                self.city + ", " + str(self.date) + "\n" + \
                "------------------------------\n\n"
 
 
 class Advertising(Publication):
     def __init__(self):
-        super(Advertising, self).__init__()
+        super().__init__()
         self.current_date = datetime.date.today()
-        expiration_year = int(input("Please enter a expiration year (must be >= " + str(self.current_date.year) + "): "))
-        expiration_month = int(input("Please enter a expiration month (must be >= " + str(self.current_date) + "): "))
-        expiration_day = int(input("Please enter a expiration day (must be >= " + str(self.current_date) + "): "))
-        self.expiration_date = datetime.date(expiration_year, expiration_month, expiration_day)
+        extension = input("Please enter a expiration month in YYYY-MM-DD (must be >= " + str(self.current_date) + "): ")
+        self.expiration_date = datetime.datetime.strptime(extension, "%Y-%m-%d").date()
         if self.expiration_date < self.current_date:
             raise UserWarning("Expiration date must be greater than or equal to current date.")
 
     def get_content(self):
         diff_date = abs((self.expiration_date - self.current_date).days)
         return "Advertising-------------------\n" + \
-               super(Advertising, self).get_content() + "\n" + \
+               super().get_content() + "\n" + \
                "Actual until: " + str(self.expiration_date) + ", " + str(diff_date) + " days left\n" + \
                "------------------------------\n\n"
 
 
 class Horoscope(Publication):
     def __init__(self):
-        super(Horoscope, self).__init__()
+        super().__init__()
         self.zodiac = input("Please write sign of the zodiac: ")
 
     def get_content(self):
         probability = randint(10, 100)
         return "Horoscope--------------------\n" + \
-               super(Horoscope, self).get_content() + "\n" + \
+               super().get_content() + "\n" + \
                "Zodiac sign: " + str(self.zodiac) + ", " + str(probability) + "% probability\n" + \
                "------------------------------\n\n"
 
@@ -73,7 +71,8 @@ class Publisher:
     @staticmethod
     def publish(publication):
         content = publication.get_content()
-        filename = "/Python_for_DQE/module_5/news.txt"
+        simp_path = 'module_5/news.txt'
+        filename = os.path.abspath(simp_path)
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, "a+") as f:
             f.write(content)
