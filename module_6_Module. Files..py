@@ -67,7 +67,7 @@ class FailPath:
 
 class PublicationConstructor:
     def __init__(self, text):
-        self.body = text
+        self.body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(text.replace('. ', '.')))
 
     def get_content(self):
         return self.body
