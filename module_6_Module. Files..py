@@ -42,24 +42,21 @@ class InputPath:
         return self.input_filepath
 
 
-class SuccessPath:
+class OutputPath:
     def __init__(self):
         success_path = 'module_6/news.txt'
         self.success_filepath = os.path.abspath(success_path)
         os.makedirs(os.path.dirname(self.success_filepath), exist_ok=True)
 
-    def get_success_file(self):
-        return self.success_filepath
-
-
-class FailPath:
-    def __init__(self):
         current_date = datetime.date.today()
         time_tuple = time.localtime()  # get struct_time
         current_time = time.strftime("%H-%M-%S", time_tuple)
         fail_path = 'module_6/fail_' + str(current_date) + '_' + str(current_time) + '.txt'
         self.fail_filepath = os.path.abspath(fail_path)
         os.makedirs(os.path.dirname(self.fail_filepath), exist_ok=True)
+
+    def get_success_file(self):
+        return self.success_filepath
 
     def get_fail_file(self):
         return self.fail_filepath
@@ -142,7 +139,7 @@ class ConsolePublisher:
     @staticmethod
     def publish(publication):
         content = publication.get_content()
-        success_path = SuccessPath()
+        success_path = OutputPath()
         with open(success_path.get_success_file(), "a+") as f:
             f.write(content)
 
@@ -153,8 +150,7 @@ class ParsingFile:
         count = 0
         fail_count = 0
         input_path = InputPath()
-        fail_path = FailPath()
-        success_path = SuccessPath()
+        output_path = OutputPath()
         try:
             with open(input_path.get_input_file(), encoding="utf8") as fp:
                 for line in fp:
@@ -171,7 +167,7 @@ class ParsingFile:
                         body = blocks[1]
                         extension = blocks[2]
                         normalize_body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(body))
-                        with open(success_path.get_success_file(), "a+") as f:
+                        with open(output_path.get_success_file(), "a+") as f:
                             if re.match(r'[news]', header.lower()):
                                 publication = NewsConstructor(normalize_body, extension)
                             elif re.match(r'[adv]', header.lower()):
@@ -185,7 +181,7 @@ class ParsingFile:
                     except (NameError, IndexError, UserWarning):
                         fail_count += 1
 
-                        with open(fail_path.get_fail_file(), "a+") as f:
+                        with open(output_path.get_fail_file(), "a+") as f:
                             f.write(text + "\n")
                         continue
 
@@ -197,7 +193,7 @@ class ParsingFile:
               "Fail publications: " + str(fail_count) + "\n" +
               "Success publications: " + str(success_count))
 
-        if os.path.exists(input_path.get_input_file()) is True and os.path.exists(fail_path.get_fail_file()) is False:
+        if os.path.exists(input_path.get_input_file()) is True and os.path.exists(output_path.get_fail_file()) is False:
             os.remove(input_path.get_input_file())
 
 
