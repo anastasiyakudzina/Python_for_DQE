@@ -40,12 +40,13 @@ length_of_dict = randint(1, 26)
 number_of_dicts = randint(2, 10)
 letters = string.ascii_lowercase
 
-list_with_dict = list_of_dict(number_of_dicts, length_of_dict, letters)
-dict_with_list = merge_dictionary_list(list_with_dict)
-combined_dict = common_dict(dict_with_list)
+if __name__ == '__main__':
+    list_with_dict = list_of_dict(number_of_dicts, length_of_dict, letters)
+    dict_with_list = merge_dictionary_list(list_with_dict)
+    combined_dict = common_dict(dict_with_list)
 
-print("Input : \n" + str(list_with_dict))
+    print("Input : \n" + str(list_with_dict))
 
-print("\nIntermediate result : \n" + str(dict_with_list))
+    print("\nIntermediate result : \n" + str(dict_with_list))
 
-print("\nFinal result : \n" + str(combined_dict))
+    print("\nFinal result : \n" + str(combined_dict))
