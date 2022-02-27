@@ -20,7 +20,9 @@ class PublicationFactory:
         elif publication_type == 3:
             return HoroscopeConsole()
         elif publication_type == 4:
-            return ParsingFile()
+            input_path = InputPath()
+            filepath_input = input_path.get_input_file()
+            return BatchPublication(filepath_input)
         raise NameError
 
 
@@ -49,7 +51,7 @@ class OutputPath:
         os.makedirs(os.path.dirname(self.success_filepath), exist_ok=True)
 
         current_date = datetime.date.today()
-        time_tuple = time.localtime()  # get struct_time
+        time_tuple = time.localtime()
         current_time = time.strftime("%H-%M-%S", time_tuple)
         fail_path = 'module_6/fail_' + str(current_date) + '_' + str(current_time) + '.txt'
         self.fail_filepath = os.path.abspath(fail_path)
@@ -135,66 +137,114 @@ class HoroscopeConsole(HoroscopeConstructor):
         super().__init__(text, zodiac)
 
 
-class ConsolePublisher:
+class BatchPublication:
+    def __init__(self, filepath_input):
+        self.path = filepath_input
+
     @staticmethod
-    def publish(publication):
+    def create_content(blocks):
+        header = blocks[0]
+        body = blocks[1]
+        extension = blocks[2]
+        normalize_body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(body))
+        if re.match(r'[news]', header.lower()):
+            news = NewsConstructor(normalize_body, extension)
+            publication = news.get_content()
+        elif re.match(r'[adv]', header.lower()):
+            adv = AdvertisingConstructor(normalize_body, extension)
+            publication = adv.get_content()
+        elif re.match(r'[hor]', header.lower()):
+            hor = HoroscopeConstructor(normalize_body, extension)
+            publication = hor.get_content()
+        else:
+            raise NameError
+        return publication
+
+    @staticmethod
+    def split_line(text_line):
+        blocks = []
+        norm_line = text_line.replace('. ', '.')
+        for i in norm_line.split('//'):
+            blocks.append(i)
+        return blocks
+
+    def get_content(self):
+        normalize_news = []
+        with open(self.path, encoding="utf8") as fp:
+            for line in fp:
+                if line == "\n":
+                    continue
+                line_split = line.strip()
+                list_with_line = self.split_line(line_split)
+                try:
+                    content = self.create_content(list_with_line)
+                    # return content
+                    normalize_news.append(content)
+                except (NameError, IndexError, UserWarning):
+                    continue
+        return '\n'.join(normalize_news)
+
+    def get_fail_content(self):
+        fail_news = []
+        with open(self.path, encoding="utf8") as fp:
+            for line in fp:
+                if line == "\n":
+                    continue
+                line_split = line.strip()
+                list_with_line = self.split_line(line_split)
+                try:
+                    self.create_content(list_with_line)
+                except (NameError, IndexError,  UserWarning):
+                    fail_news.append(line_split + "\n")
+                    continue
+        return ''.join(fail_news)
+
+    def get_processing_result(self):
+        count = 0
+        fail_count = 0
+        with open(self.path, encoding="utf8") as fp:
+            for line in fp:
+                if line == "\n":
+                    continue
+                line_split = line.strip()
+                list_with_line = self.split_line(line_split)
+                count += 1
+                try:
+                    self.create_content(list_with_line)
+                except (NameError, IndexError,  UserWarning):
+                    fail_count += 1
+                    continue
+        success_count = count - fail_count
+        print("Total publications: " + str(count) + "\n" +
+              "Fail publications: " + str(fail_count) + "\n" +
+              "Success publications: " + str(success_count))
+
+        if os.path.exists(self.path) is True and fail_count == 0:
+            os.remove(self.path)
+
+
+class SuccessPublisher:
+    @staticmethod
+    def success_publish(publication):
         content = publication.get_content()
         success_path = OutputPath()
         with open(success_path.get_success_file(), "a+") as f:
             f.write(content)
 
 
-class ParsingFile:
+class FailPublisher:
     @staticmethod
-    def parse_file():
-        count = 0
-        fail_count = 0
-        input_path = InputPath()
-        output_path = OutputPath()
-        try:
-            with open(input_path.get_input_file(), encoding="utf8") as fp:
-                for line in fp:
-                    if line == "\n":
-                        continue
-                    count += 1
-                    text = line.strip()
-                    delete_space_dot = text.replace('. ', '.')
-                    blocks = []
-                    for i in delete_space_dot.split('//'):
-                        blocks.append(i)
-                    try:
-                        header = blocks[0]
-                        body = blocks[1]
-                        extension = blocks[2]
-                        normalize_body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(body))
-                        with open(output_path.get_success_file(), "a+") as f:
-                            if re.match(r'[news]', header.lower()):
-                                publication = NewsConstructor(normalize_body, extension)
-                            elif re.match(r'[adv]', header.lower()):
-                                publication = AdvertisingConstructor(normalize_body, extension)
-                            elif re.match(r'[hor]', header.lower()):
-                                publication = HoroscopeConstructor(normalize_body, extension)
-                            else:
-                                raise NameError
-                            content = publication.get_content()
-                            f.write(content)
-                    except (NameError, IndexError, UserWarning):
-                        fail_count += 1
+    def fail_publish(publication):
+        content = publication.get_fail_content()
+        fail_path = OutputPath()
+        with open(fail_path.get_fail_file(), "a+") as f:
+            f.write(content)
 
-                        with open(output_path.get_fail_file(), "a+") as f:
-                            f.write(text + "\n")
-                        continue
 
-        except FileNotFoundError:
-            print("No such file or directory.")
-
-        success_count = count - fail_count
-        print("Total publications: " + str(count) + "\n" +
-              "Fail publications: " + str(fail_count) + "\n" +
-              "Success publications: " + str(success_count))
-
-        if os.path.exists(input_path.get_input_file()) is True and os.path.exists(output_path.get_fail_file()) is False:
-            os.remove(input_path.get_input_file())
+class ProcessingResultPublisher:
+    @staticmethod
+    def result_publish(publication):
+        publication.get_processing_result()
 
 
 class Runner:
@@ -202,14 +252,18 @@ class Runner:
     def run():
         try:
             newsfeed_publication = PublicationFactory.get()
-            if isinstance(newsfeed_publication, ParsingFile) is True:
-                newsfeed_publication.parse_file()
+            if isinstance(newsfeed_publication, BatchPublication) is True:
+                SuccessPublisher.success_publish(newsfeed_publication)
+                FailPublisher.fail_publish(newsfeed_publication)
+                ProcessingResultPublisher.result_publish(newsfeed_publication)
             else:
-                ConsolePublisher.publish(newsfeed_publication)
+                SuccessPublisher.success_publish(newsfeed_publication)
         except (NameError, ValueError):
             print("Invalid input, please try again.")
         except UserWarning as warn_err:
             print(warn_err.args[0])
+        except (FileNotFoundError, TypeError):
+            print("No such file or directory.")
 
 
 Runner.run()
