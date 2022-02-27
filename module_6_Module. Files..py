@@ -178,7 +178,6 @@ class BatchPublication:
                 list_with_line = self.split_line(line_split)
                 try:
                     content = self.create_content(list_with_line)
-                    # return content
                     normalize_news.append(content)
                 except (NameError, IndexError, UserWarning):
                     continue
