@@ -84,6 +84,8 @@ class OutputPath:
 class PublicationConstructor:
     def __init__(self, text):
         self.body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(text.replace('. ', '.')))
+        if self.body == "":
+            raise ImportWarning
 
     def get_content(self):
         return self.body
@@ -93,6 +95,8 @@ class NewsConstructor(PublicationConstructor):
     def __init__(self, text, city):
         super().__init__(text)
         self.extension = city
+        if self.extension == "":
+            raise ImportWarning
         self.date = datetime.datetime.now()
 
     def get_content(self):
@@ -116,7 +120,7 @@ class AdvertisingConstructor(PublicationConstructor):
         self.extension = expiration_date
         self.end_date = datetime.datetime.strptime(self.extension, "%Y-%m-%d").date()
         if self.end_date < self.current_date:
-            raise UserWarning("Expiration date must be greater than or equal to current date.")
+            raise UserWarning
 
     def get_content(self):
         diff_date = abs((self.end_date - self.current_date).days)
@@ -138,6 +142,8 @@ class HoroscopeConstructor(PublicationConstructor):
     def __init__(self, text, zodiac):
         super().__init__(text)
         self.extension = zodiac
+        if self.extension == "":
+            raise ImportWarning
 
     def get_content(self):
         probability = randint(10, 100)
@@ -196,7 +202,7 @@ class BatchPublication:
                 try:
                     content = self.create_content(list_with_line)
                     normalize_news.append(content)
-                except (NameError, IndexError, UserWarning):
+                except (NameError, ValueError, IndexError, UserWarning, ImportWarning, TypeError):
                     continue
         return ''.join(normalize_news)
 
@@ -210,7 +216,7 @@ class BatchPublication:
                 list_with_line = self.split_line(line_split)
                 try:
                     self.create_content(list_with_line)
-                except (NameError, IndexError,  UserWarning):
+                except (NameError, ValueError, IndexError, UserWarning, ImportWarning, TypeError):
                     fail_news.append(line_split + "\n")
                     continue
         return ''.join(fail_news)
@@ -227,7 +233,7 @@ class BatchPublication:
                 count += 1
                 try:
                     self.create_content(list_with_line)
-                except (NameError, IndexError,  UserWarning):
+                except (NameError, ValueError, IndexError, UserWarning, ImportWarning, TypeError):
                     fail_count += 1
                     continue
         success_count = count - fail_count
@@ -339,12 +345,14 @@ class Runner:
                 WordsCSVPublisher.words_csv_writer(newsfeed_publication)
                 letters_csv = LettersCSVPublisher()
                 letters_csv.letters_csv_writer(newsfeed_publication)
-        except (NameError, ValueError):
-            print("Invalid input, please try again.")
+        except (NameError, ValueError) as name_err:
+            print(f"Invalid input, please try again. {name_err}")
         except UserWarning as warn_err:
-            print(warn_err.args[0])
-        except (FileNotFoundError, TypeError):
-            print("No such file or directory.")
+            print(f"Expiration date must be greater than or equal to current date. {warn_err}")
+        except (FileNotFoundError, TypeError) as file_err:
+            print(f"No such file or directory. {file_err}")
+        except ImportWarning as none_err:
+            print(f"Input can't be empty. {none_err}")
 
 
 Runner.run()
