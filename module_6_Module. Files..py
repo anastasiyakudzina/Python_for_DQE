@@ -185,7 +185,7 @@ class BatchPublication:
                 try:
                     content = self.create_content(list_with_line)
                     normalize_news.append(content)
-                except (NameError, ValueError, IndexError, UserWarning, ImportWarning, FileNotFoundError, TypeError):
+                except (NameError, ValueError, IndexError, UserWarning, ImportWarning, TypeError):
                     continue
         return '\n'.join(normalize_news)
 
@@ -199,7 +199,7 @@ class BatchPublication:
                 list_with_line = self.split_line(line_split)
                 try:
                     self.create_content(list_with_line)
-                except (NameError, ValueError, IndexError,  UserWarning, ImportWarning, FileNotFoundError, TypeError):
+                except (NameError, ValueError, IndexError,  UserWarning, ImportWarning, TypeError):
                     fail_news.append(line_split + "\n")
                     continue
         return ''.join(fail_news)
@@ -216,7 +216,7 @@ class BatchPublication:
                 count += 1
                 try:
                     self.create_content(list_with_line)
-                except (NameError, ValueError, IndexError,  UserWarning, ImportWarning, FileNotFoundError, TypeError):
+                except (NameError, ValueError, IndexError,  UserWarning, ImportWarning, TypeError):
                     fail_count += 1
                     continue
         success_count = count - fail_count
