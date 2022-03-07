@@ -1,0 +1,10 @@
+News -------------------------
+This is news. Something happend. 
+Wroclaw, 2022-03-08 00:00:27.831881
+------------------------------
+
+Advertising-------------------
+This is adv. Something is for sale. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+

@@ -1,0 +1,29 @@
+<newsfeed><news name="123">
+		<text>this is adv. something is for sale</text>
+		<extension>2022-08-17</extension>
+	</news>
+<news name="adv">
+		<text>this is adv. something is for sale</text>
+		<extension>2020-08-17</extension>
+	</news>
+	<news name="adv">
+		<text>this is adv. something is for sale</text>
+		<extension>20-08-17</extension>
+	</news>
+	<news name="">
+		<text>this is horoscope. something is going to happen this week</text>
+		<extension>Scorpio</extension>
+	</news>
+	<news name="adv">
+		<text>this is adv. something is for sale</text>
+		<extension />
+	</news>
+	<news name="news">
+		<text />
+		<extension>Wroclaw</extension>
+	</news>
+	<news name="hor">
+		<text>this is horoscope. something is going to happen this week</text>
+		<extension />
+	</news>
+	</newsfeed>
