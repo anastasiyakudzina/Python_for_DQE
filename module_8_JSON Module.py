@@ -187,13 +187,13 @@ class Content:
 
     def create_content(self):
         normalize_body = add_dot_and_paragraph_into_text(create_capitalizing_sentences(self.body))
-        if re.match(r'[news]', self.header.lower()):
+        if re.search(r'\bnew\w+', self.header.lower()) or re.search(r'\bnew$', self.header.lower()):
             news = NewsConstructor(normalize_body, self.extension)
             publication = news.get_content()
-        elif re.match(r'[adv]', self.header.lower()):
+        elif re.search(r'\badv\w+', self.header.lower()) or re.search(r'\badv$', self.header.lower()):
             adv = AdvertisingConstructor(normalize_body, self.extension)
             publication = adv.get_content()
-        elif re.match(r'[hor]', self.header.lower()):
+        elif re.search(r'\bhor\w+', self.header.lower()) or re.search(r'\bhor$', self.header.lower()):
             hor = HoroscopeConstructor(normalize_body, self.extension)
             publication = hor.get_content()
         else:

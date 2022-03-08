@@ -13,3 +13,128 @@ Thst fgh. Jgjj.
 Zodiac sign: Scorpio, 75% probability
 ------------------------------
 
+News -------------------------
+This is news. Something happend. 
+Wroclaw, 2022-03-06 20:06:09.220844
+------------------------------
+
+Advertising-------------------
+This is adv. Something is for sale. 
+Actual until: 2022-08-17, 164 days left
+------------------------------
+
+Horoscope--------------------
+This is horoscope. Something is going to happen this week. 
+Zodiac sign: Scorpio, 47% probability
+------------------------------
+
+News -------------------------
+This is news. Something happend. 
+Wroclaw, 2022-03-06 20:06:31.456824
+------------------------------
+
+Advertising-------------------
+This is adv. Something is for sale. 
+Actual until: 2022-08-17, 164 days left
+------------------------------
+
+Horoscope--------------------
+This is horoscope. Something is going to happen this week. 
+Zodiac sign: Scorpio, 23% probability
+------------------------------
+
+News -------------------------
+Thst fgh. Jgjj. 
+Moscow, 2022-03-08 12:43:55.413561
+------------------------------
+
+Advertising-------------------
+Thst fgh. Jgjj. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+
+Horoscope--------------------
+Thst fgh. Jgjj. 
+Zodiac sign: Scorpio, 10% probability
+------------------------------
+
+News -------------------------
+Thst fgh. Jgjj. 
+Moscow, 2022-03-08 12:51:52.740617
+------------------------------
+
+Advertising-------------------
+Thst fgh. Jgjj. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+
+Horoscope--------------------
+Thst fgh. Jgjj. 
+Zodiac sign: Scorpio, 32% probability
+------------------------------
+
+News -------------------------
+Thst fgh. Jgjj. 
+Moscow, 2022-03-08 15:49:46.528243
+------------------------------
+
+News -------------------------
+Thst fgh. Jgjj. 
+Moscow, 2022-03-08 16:01:00.803671
+------------------------------
+
+Advertising-------------------
+Thst fgh. Jgjj. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+
+Horoscope--------------------
+Thst fgh. Jgjj. 
+Zodiac sign: Scorpio, 29% probability
+------------------------------
+
+Advertising-------------------
+Thst fgh. Jgjj. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+
+News -------------------------
+Thst fgh. Jgjj. 
+Moscow, 2022-03-08 16:01:00.820221
+------------------------------
+
+News -------------------------
+True. 
+Moscow, 2022-03-08 16:26:04.811299
+------------------------------
+
+Advertising-------------------
+True. 
+Actual until: 2022-08-17, 162 days left
+------------------------------
+
+Advertising-------------------
+True. 
+Actual until: 2022-06-17, 101 days left
+------------------------------
+
+Horoscope--------------------
+True. 
+Zodiac sign: Scorpio, 97% probability
+------------------------------
+
+Advertising-------------------
+True. 
+Actual until: 2023-08-17, 527 days left
+------------------------------
+
+Horoscope--------------------
+True. 
+Zodiac sign: Scorpio, 18% probability
+------------------------------
+
+News -------------------------
+True. 
+Moscow, 2022-03-08 16:26:04.817143
+------------------------------
+
